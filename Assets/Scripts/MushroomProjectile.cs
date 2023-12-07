@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MushroomProjectile : MonoBehaviour
 {
-    //[SerializeField] private Transform vfxHitFloor;
+    [SerializeField] private Transform vfxHitFloor;
     //[SerializeField] private Transform vfxHitTarget;
 
     private Rigidbody mushroomRigidBody;
@@ -30,8 +30,9 @@ public class MushroomProjectile : MonoBehaviour
         if (other.GetComponent<HitFloor>() != null)
         {
             // hit floor
-            //Instantiate(vfxHitFloor, transform.position, Quaternion.identity);
+            Instantiate(vfxHitFloor, transform.position, Quaternion.identity); 
             Destroy(gameObject);
+            Debug.Log("hit on floor");
         }
         else
         {

@@ -69,21 +69,29 @@ public class ShooterController : MonoBehaviour
 
                 if (selectedWeapon == 1)
                 {
+                    animator.Play("BowAimWalkForward");
 
                     if (Input.GetMouseButtonDown(0))
                     {
-                        Debug.Log("Bow attack");                       
+                        //Debug.Log("Bow attack");                       
+
                         aimDir = (mouseWorldPosition - spawnArrowPosition.position).normalized;
                         Instantiate(arrowPrefab, spawnArrowPosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                     }
                     // activate animation layer 2, aiming layer
                     // animator.SetLayerWeight(1, Mathf.Lerp(animator.GetLayerWeight(1), 1f, Time.deltaTime * 10f));
                     // animator.SetBool("IsBowAiming", true);
-                }if (selectedWeapon == 2)
+                }
+                if (selectedWeapon == 2)
                 {
-                    Debug.Log("Throwable throw");
+                    //Debug.Log("Throwable throw");
                     aimDir = (mouseWorldPosition - spawnMushroomProjectilePosition.position).normalized;  
-                    Instantiate(mushroomProjectilePrefab, spawnMushroomProjectilePosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        animator.Play("Throw");
+                        Instantiate(mushroomProjectilePrefab, spawnMushroomProjectilePosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                    }
                 }
 
             }
@@ -125,7 +133,8 @@ public class ShooterController : MonoBehaviour
             if (selectedWeapon == 2) // throwable
             {
                 // play throw animation
-                
+                animator.Play("Throw");
+
                 // sync animation timing with throw 
 
 
