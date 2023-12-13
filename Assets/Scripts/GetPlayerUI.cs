@@ -15,6 +15,8 @@ public class GetPlayerUI : MonoBehaviour
         if (thisObject.HasStateAuthority)
         {
             GetComponent<WeaponSwap>().enabled = true;
+            GetComponent<PlayerHealth>().enabled = true;
+
         }
     }
 }

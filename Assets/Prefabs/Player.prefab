@@ -1977,6 +1977,7 @@ GameObject:
   - component: {fileID: 115723323465458132}
   - component: {fileID: 2292239272057680109}
   - component: {fileID: 4999735930524868742}
+  - component: {fileID: 3029324898710088250}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2324,7 +2325,7 @@ MonoBehaviour:
     _value: 0
     _inverse: 0
     _hash: -814817977
-  StateHashes: 0000000084ca1cc0f9c6230b1c6a54339e2518b671a7e1076b36dbedb1afdc305a6c54cd4b3cc76395978600
+  StateHashes: 0000000084ca1cc0f9c6230b1c6a54339e2518b671a7e1076b36dbedb1afdc305a6c54cd4b3cc76395978600336e528eb1211e0b82307864fa8e7005
   TriggerHashes: 00000000
 --- !u!114 &115723323465458132
 MonoBehaviour:
@@ -2377,6 +2378,21 @@ MonoBehaviour:
   spawnArrowPosition: {fileID: 8606405260958264252}
   arrowPrefab: {fileID: 1192516586750517565, guid: 7446c0313ab958b49b75ecfae7e04cec,
     type: 3}
+--- !u!114 &3029324898710088250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6410771626786585685}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073cae61c0d9dd84180250a7339d6668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  healthBarSlider: {fileID: 0}
 --- !u!1 &6421791474839364917
 GameObject:
   m_ObjectHideFlags: 0

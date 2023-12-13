@@ -22,6 +22,7 @@ public class MushroomProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       // Debug.Log("hit");
         if (other.GetComponent<HitTarget>() != null)
         {
             // hit target
@@ -37,7 +38,7 @@ public class MushroomProjectile : MonoBehaviour
         else
         {
             //hit something else
-
+            Debug.Log("hit on something");
         }
 
     }
