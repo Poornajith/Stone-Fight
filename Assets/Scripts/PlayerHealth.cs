@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int maxHealth;
     [SerializeField] int currentHealth;
     [SerializeField] Slider healthBarSlider;
+    [SerializeField] GameObject gameOverUI;
 
     GameObject healthBarobject;
 
@@ -19,9 +20,11 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         NetworkObject thisObject = GetComponent<NetworkObject>();
+        gameOverUI = GameObject.Find("GameOver");
 
         if (thisObject.HasStateAuthority)
         {
+            gameOverUI.SetActive(false);
             healthBarobject = GameObject.Find("HealthBar");
             healthBarSlider = healthBarobject.GetComponent<Slider>();
             healthBarSlider.value = maxHealth;
@@ -36,6 +39,11 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= 10;
         }
         healthBarSlider.value = currentHealth;
+
+        if(currentHealth <= 0)
+        {
+            gameOverUI.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

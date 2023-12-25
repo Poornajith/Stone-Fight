@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: 24683b6aa09985f4c89b6742c326f8ca
-labels:
-- FusionPrefab
-PrefabImporter:
+guid: 30838fef1d8cdc142a9301b6a04dfa89
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

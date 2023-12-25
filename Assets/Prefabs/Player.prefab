@@ -2393,6 +2393,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   healthBarSlider: {fileID: 0}
+  gameOverUI: {fileID: 0}
 --- !u!1 &6421791474839364917
 GameObject:
   m_ObjectHideFlags: 0
