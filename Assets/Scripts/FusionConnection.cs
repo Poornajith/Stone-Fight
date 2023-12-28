@@ -4,6 +4,7 @@ using Fusion;
 using Fusion.Sockets;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -21,6 +22,7 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] public Transform sessionListContent;
     [SerializeField] public GameObject sessionEntryPrefab;
     [SerializeField] public GameObject roomListView;
+    [SerializeField] public GameObject gameOverView;
 
     private void Awake()
     {
@@ -84,6 +86,12 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
         NetworkObject playerObject = runner.Spawn(playerPrefab, Vector3.zero);
 
         runner.SetPlayerObject(runner.LocalPlayer, playerObject);
+    }
+
+    public void OnPlayerDead()
+    {
+        // Destroy(playerPrefab);
+        gameOverView.SetActive(true);       
     }
 
     public void RefreshSessionListUI()
