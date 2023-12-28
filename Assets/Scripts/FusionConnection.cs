@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Fusion;
 using Fusion.Sockets;
 using System.Collections.Generic;
@@ -7,12 +8,19 @@ using System;
 public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 {
     public static FusionConnection instance;
-    public bool connectOnAwake = false;
     [HideInInspector] public NetworkRunner runner;
 
     [SerializeField] NetworkObject playerPrefab;
 
     public string _playerName = null;
+
+    private List<SessionInfo> _sessions = new List<SessionInfo>();
+
+    [Header("Session List")]
+    [SerializeField] public Button refreshButton;
+    [SerializeField] public Transform sessionListContent;
+    [SerializeField] public GameObject sessionEntryPrefab;
+    [SerializeField] public GameObject roomListView;
 
     private void Awake()
     {
@@ -20,15 +28,23 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
         {
             instance = this;    
         }
-        if (connectOnAwake)
-        {
-            ConnectToRunner("Anonymous");
-        }
     }
 
-    public async void ConnectToRunner(string playerName)
+    public void ConnectToLobby(string playerName)
     {
+        roomListView.SetActive(true);
         _playerName = playerName;
+
+        if (runner == null)
+        {
+            runner = gameObject.AddComponent<NetworkRunner>();
+        }
+        runner.JoinSessionLobby(SessionLobby.Shared);
+    }
+
+    public async void ConnectToSession(string sessionName)
+    {
+        roomListView.SetActive(false);
 
         if (runner == null)
         {
@@ -37,9 +53,28 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
         await runner.StartGame(new StartGameArgs
         {
             GameMode = GameMode.Shared,
-            SessionName = "test",
-            PlayerCount = 3,
+            SessionName = sessionName,
            // SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+        });
+    }
+
+    public async void CreateSession()
+    {
+        roomListView.SetActive(false);
+
+        int randomInt = UnityEngine.Random.Range(1000, 9999);
+        string randomSessionName = "Room-" + randomInt.ToString();
+
+        if (runner == null)
+        {
+            runner = gameObject.AddComponent<NetworkRunner>();
+        }
+        await runner.StartGame(new StartGameArgs
+        {
+            GameMode = GameMode.Shared,
+            SessionName = randomSessionName,
+            PlayerCount = 4,
+            // SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
     }
 
@@ -49,6 +84,35 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
         NetworkObject playerObject = runner.Spawn(playerPrefab, Vector3.zero);
 
         runner.SetPlayerObject(runner.LocalPlayer, playerObject);
+    }
+
+    public void RefreshSessionListUI()
+    {
+        // make sure when refreshing it not creating duplicates 
+        foreach(Transform child  in sessionListContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (SessionInfo session in sessionListContent)
+        {
+            if (session.IsVisible)
+            {
+                GameObject entry = GameObject.Instantiate(sessionEntryPrefab, sessionListContent);
+                SessionEntryPrefab script = entry.GetComponent<SessionEntryPrefab>();
+                script.sessionName.text = session.Name;
+                script.playerCount.text = session.PlayerCount + "/" + session.MaxPlayers;
+
+                if(session.IsOpen == false || session.PlayerCount >= session.MaxPlayers)
+                {
+                    script.joinButton.interactable = false;
+                }
+                else
+                {
+                    script.joinButton.interactable = true;
+                }
+            }
+        }
     }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
@@ -113,7 +177,8 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
-        
+        _sessions.Clear();
+        _sessions = sessionList;
     }
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
@@ -125,16 +190,5 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
     {
         
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

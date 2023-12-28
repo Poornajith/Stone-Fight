@@ -13,7 +13,7 @@ public class NameEntry : MonoBehaviour
 
     public void SubmitName()
     {
-        FusionConnection.instance.ConnectToRunner(nameInput.text);
+        FusionConnection.instance.ConnectToLobby(nameInput.text);
         playerNameInUI.SetActive(false);
     }
 
