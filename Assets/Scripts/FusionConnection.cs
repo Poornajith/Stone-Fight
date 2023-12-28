@@ -6,22 +6,31 @@ using System;
 
 public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 {
+    public static FusionConnection instance;
     public bool connectOnAwake = false;
     [HideInInspector] public NetworkRunner runner;
 
     [SerializeField] NetworkObject playerPrefab;
 
+    public string _playerName = null;
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;    
+        }
         if (connectOnAwake)
         {
-            ConnectToRunner();
+            ConnectToRunner("Anonymous");
         }
     }
 
-    public async void ConnectToRunner()
+    public async void ConnectToRunner(string playerName)
     {
-        if(runner == null)
+        _playerName = playerName;
+
+        if (runner == null)
         {
             runner = gameObject.AddComponent<NetworkRunner>();
         }
