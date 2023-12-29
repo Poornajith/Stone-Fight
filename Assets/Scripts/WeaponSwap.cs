@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class WeaponSwap : MonoBehaviour
 {
     public int selectedWeapon = 0; // 0 - melee, 1 - Bow, 2 - Throwable
+    public int numberOfWeapons = 3;
 
     [SerializeField] public GameObject melee;
     [SerializeField] public GameObject bow;
@@ -44,6 +45,33 @@ public class WeaponSwap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // switch weapon via mouse scroll
+        if (Input.mouseScrollDelta.y > 0f)
+        {
+            Debug.Log("scroll forward");
+            if(selectedWeapon < numberOfWeapons)
+            {
+                selectedWeapon +=1;
+            }
+            else
+            {
+                selectedWeapon = 0;
+            }
+        }
+        if (Input.mouseScrollDelta.y < 0f)
+        {
+            Debug.Log("scroll backward");
+            if (selectedWeapon > 0)
+            {
+                selectedWeapon -=1;
+            }
+            else
+            {
+                selectedWeapon = numberOfWeapons - 1;
+            }
+        }
+
+        //switch weapon via alpha keys
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             selectedWeapon = 0; // melee 
