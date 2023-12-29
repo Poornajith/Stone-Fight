@@ -18,11 +18,11 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
     private List<SessionInfo> _sessions = new List<SessionInfo>();
 
     [Header("Session List")]
-    [SerializeField] public Button refreshButton;
-    [SerializeField] public Transform sessionListContent;
-    [SerializeField] public GameObject sessionEntryPrefab;
-    [SerializeField] public GameObject roomListView;
-    [SerializeField] public GameObject gameOverView;
+    public Button refreshButton;
+    public Transform sessionListContent;
+    public GameObject sessionEntryPrefab;
+    public GameObject roomListView;
+    public GameObject gameOverView;
 
     private void Awake()
     {
@@ -122,6 +122,24 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
             }
         }
     }
+    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    {
+        Debug.Log("OnPlayerJoined");
+    }
+
+    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+    {
+        Debug.Log("OnPlayerLeft");
+    }
+
+    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
+    {
+        _sessions.Clear();
+        _sessions = sessionList;
+        Debug.Log("Session list Updated");
+        Debug.Log(_sessions);
+        
+    }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
     {
@@ -158,35 +176,17 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
         
     }
 
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
-    {
-        Debug.Log("OnPlayerJoined");
-    }
-
-    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
-    {
-        Debug.Log("OnPlayerLeft");
-    }
-
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
     {
         
     }
-
     public void OnSceneLoadDone(NetworkRunner runner)
     {
         
     }
-
     public void OnSceneLoadStart(NetworkRunner runner)
     {
         
-    }
-
-    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
-    {
-        _sessions.Clear();
-        _sessions = sessionList;
     }
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)

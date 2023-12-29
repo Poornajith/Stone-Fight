@@ -172,6 +172,7 @@ MonoBehaviour:
   sessionEntryPrefab: {fileID: 9024137642509436165, guid: 37ad69781af2ee34fb3509cc736b7e44,
     type: 3}
   roomListView: {fileID: 2087669224}
+  gameOverView: {fileID: 1293029004}
 --- !u!4 &115749829
 Transform:
   m_ObjectHideFlags: 0
@@ -4535,7 +4536,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1814994329}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 115749828}
+        m_TargetAssemblyTypeName: FusionConnection, Assembly-CSharp
+        m_MethodName: RefreshSessionListUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1814994329
 MonoBehaviour:
   m_ObjectHideFlags: 0

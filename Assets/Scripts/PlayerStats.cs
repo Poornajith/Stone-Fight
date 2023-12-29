@@ -39,9 +39,12 @@ public class PlayerStats : NetworkBehaviour
             FusionConnection.instance.OnPlayerDead();
             Debug.Log("you died");
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if(this.HasInputAuthority)
         {
-            Health -= 10;
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                Health -= 10;
+            }
         }
     }
 }

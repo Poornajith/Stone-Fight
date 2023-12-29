@@ -20,13 +20,14 @@ public class RefreshButton : MonoBehaviour
     private void Refresh()
     {
         StartCoroutine(RefreshWait());
+        
     }
 
     private IEnumerator RefreshWait()
     {
         refreshButton.interactable = false;
         FusionConnection.instance.RefreshSessionListUI();
-
+        Debug.Log("refresh");
         yield return new WaitForSeconds(3f);
         refreshButton.interactable = true;
     }
