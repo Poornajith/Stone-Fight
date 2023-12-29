@@ -21,8 +21,9 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
     public Button refreshButton;
     public Transform sessionListContent;
     public GameObject sessionEntryPrefab;
-    public GameObject roomListView;
+   // public GameObject roomListView;
     public GameObject gameOverView;
+    public GameObject roomNameInputView;
 
     private void Awake()
     {
@@ -34,7 +35,8 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 
     public void ConnectToLobby(string playerName)
     {
-        roomListView.SetActive(true);
+        roomNameInputView.SetActive(true);
+
         _playerName = playerName;
 
         if (runner == null)
@@ -46,7 +48,7 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 
     public async void ConnectToSession(string sessionName)
     {
-        roomListView.SetActive(false);
+        roomNameInputView.SetActive(false);
 
         if (runner == null)
         {
@@ -62,7 +64,47 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 
     public async void CreateSession()
     {
-        roomListView.SetActive(false);
+       // roomListView.SetActive(false);
+
+        int randomInt = UnityEngine.Random.Range(1000, 9999);
+        string randomSessionName = "Room-" + randomInt.ToString();
+
+        if (runner == null)
+        {
+            runner = gameObject.AddComponent<NetworkRunner>();
+        }
+        await runner.StartGame(new StartGameArgs
+        {
+            GameMode = GameMode.Shared,
+            SessionName = randomSessionName,
+            PlayerCount = 4,
+            // SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+        });
+    }
+
+    // session names comes in room name logic
+    public async void CreateSessionWithNewName(String sessionName)
+    {
+        roomNameInputView.SetActive(false);
+
+        if (runner == null)
+        {
+            runner = gameObject.AddComponent<NetworkRunner>();
+        }
+        await runner.StartGame(new StartGameArgs
+        {
+            GameMode = GameMode.Shared,
+            SessionName = sessionName,
+            PlayerCount = 4,
+            // SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+        });
+
+    }
+
+    // create new room with random name
+    public async void CreateNewRoom()
+    {
+       // roomListView.SetActive(false);
 
         int randomInt = UnityEngine.Random.Range(1000, 9999);
         string randomSessionName = "Room-" + randomInt.ToString();
