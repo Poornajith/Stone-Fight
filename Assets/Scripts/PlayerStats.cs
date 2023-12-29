@@ -7,11 +7,14 @@ using UnityEngine.UI;
 
 public class PlayerStats : NetworkBehaviour
 {
+    public static PlayerStats Instance;
     [Networked(OnChanged = nameof(UpdatePlayerName))] public NetworkString<_32> PlayerName { get; set; }
     [Networked(OnChanged = nameof(UpdateHealth))] public float Health { get; set; }
 
     [SerializeField] TextMeshPro playerNameLabel;
     [SerializeField] public Image healthBar;
+
+    private IEnumerator poisonFieldEffect;
 
     private void Start()
     {
@@ -29,7 +32,10 @@ public class PlayerStats : NetworkBehaviour
 
     protected static void UpdateHealth(Changed<PlayerStats> changed)
     {
-        changed.Behaviour.healthBar.transform.localScale = new Vector3(changed.Behaviour.Health/100, 1, 1);
+        if(changed.Behaviour.Health >= 0)
+        {
+            changed.Behaviour.healthBar.transform.localScale = new Vector3(changed.Behaviour.Health/100, 1, 1);
+        }
     }
 
     private void Update()
@@ -39,12 +45,44 @@ public class PlayerStats : NetworkBehaviour
             FusionConnection.instance.OnPlayerDead();
             Debug.Log("you died");
         }
-        if(this.HasInputAuthority)
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<PoissonField>() != null)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                Health -= 10;
-            }
+            poisonFieldEffect = HealthDecreaseOverTime(2.0f);
+            StartCoroutine(poisonFieldEffect);
+        }
+        if (other.GetComponent<ArrowProjectile>() != null)
+        {
+            Health -= 20;
+        }
+        if (other.GetComponent<MeleWeapon>() != null)
+        {
+            Health -= 50;
+        }
+        if (other.GetComponent<MushroomProjectile>() != null)
+        {
+            Health -= 30;
+        }
+    }
+
+    private IEnumerator HealthDecreaseOverTime(float effectTime)
+    {
+        while (true)
+        {
+            Health -= 10;
+            yield return new WaitForSeconds(effectTime);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<PoissonField>() != null)
+        {
+            StopCoroutine(poisonFieldEffect);
         }
     }
 }

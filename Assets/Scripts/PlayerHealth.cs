@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] int maxHealth;
-    [SerializeField] int currentHealth;
+    [SerializeField] float maxHealth;
+    [SerializeField] float currentHealth;
     [SerializeField] Slider healthBarSlider;
-    [SerializeField] GameObject gameOverUI;
+    
 
     GameObject healthBarobject;
 
@@ -20,11 +20,11 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         NetworkObject thisObject = GetComponent<NetworkObject>();
-        gameOverUI = GameObject.Find("GameOver");
+        
 
         if (thisObject.HasStateAuthority)
         {
-            gameOverUI.SetActive(false);
+           
             healthBarobject = GameObject.Find("HealthBar");
             healthBarSlider = healthBarobject.GetComponent<Slider>();
             healthBarSlider.value = maxHealth;
@@ -34,19 +34,16 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.K))
-        {
-            currentHealth -= 10;
-        }
+        //currentHealth = PlayerStats.Instance.Health;
         healthBarSlider.value = currentHealth;
 
         if(currentHealth <= 0)
         {
-            gameOverUI.SetActive(true);
+           // gameOverUI.SetActive(true);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if(other.GetComponent<PoissonField>() != null)
         {
@@ -82,5 +79,5 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= 10;
             yield return new WaitForSeconds(effectTime);
         }
-    }
+    }*/
 }
