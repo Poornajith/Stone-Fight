@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 7569150697392705292}
   - component: {fileID: -618818133193503458}
   - component: {fileID: 587462103970850105}
+  - component: {fileID: 2914767120910979525}
+  - component: {fileID: 4884198062490261115}
   m_Layer: 0
   m_Name: Red_Mushroom_01
   m_TagString: Untagged
@@ -204,3 +206,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vfxHitFloor: {fileID: 6391517310171368520, guid: 24683b6aa09985f4c89b6742c326f8ca,
     type: 3}
+--- !u!114 &2914767120910979525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6739342721778362392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: a2781c59a9cee4e4187ea62f61722c59
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 4884198062490261115}
+  SimulationBehaviours: []
+--- !u!114 &4884198062490261115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6739342721778362392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 3676328041769085798}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
+  UseLegacySharedModeInterpolation: 0
+  TargetInterpolationDelay: 0.03

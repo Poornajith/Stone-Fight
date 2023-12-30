@@ -43,6 +43,7 @@ public class PlayerStats : NetworkBehaviour
         if(Health <= 0)
         {
             FusionConnection.instance.OnPlayerDead();
+            FusionConnection.instance.runner.Shutdown();
             Debug.Log("you died");
         }
         
@@ -63,10 +64,14 @@ public class PlayerStats : NetworkBehaviour
         {
             Health -= 50;
         }
-        if (other.GetComponent<MushroomProjectile>() != null)
+        /*if (other.GetComponent<MushroomProjectile>() != null)
         {
             Health -= 30;
-        }
+        }*/
+        /*if (other.GetComponent<NetworkObject>() != null)
+        {
+            Health -= 50;
+        }*/
     }
 
     private IEnumerator HealthDecreaseOverTime(float effectTime)

@@ -1,4 +1,5 @@
 using Cinemachine;
+using Fusion;
 using StarterAssets;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class ShooterController : MonoBehaviour
 
     private Transform debugTransform;
 
-    [SerializeField] private Transform mushroomProjectilePrefab;
+    [SerializeField] private GameObject mushroomProjectilePrefab;
     [SerializeField] private Transform spawnMushroomProjectilePosition;
     [SerializeField] private Transform spawnArrowPosition;
     [SerializeField] private Transform arrowPrefab;
@@ -91,6 +92,8 @@ public class ShooterController : MonoBehaviour
                     {
                         animator.Play("Throw");
                         Instantiate(mushroomProjectilePrefab, spawnMushroomProjectilePosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                       // Transform mushroomGrenade = Instantiate(mushroomProjectilePrefab, spawnMushroomProjectilePosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
+                        FusionConnection.instance.runner.Spawn(mushroomProjectilePrefab, spawnMushroomProjectilePosition.position, Quaternion.LookRotation(aimDir, Vector3.up));
                     }
                 }
 
