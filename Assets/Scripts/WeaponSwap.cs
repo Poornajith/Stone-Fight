@@ -48,7 +48,7 @@ public class WeaponSwap : MonoBehaviour
         // switch weapon via mouse scroll
         if (Input.mouseScrollDelta.y > 0f)
         {
-            Debug.Log("scroll forward");
+          //  Debug.Log("scroll up");
             if(selectedWeapon < numberOfWeapons)
             {
                 selectedWeapon +=1;
@@ -60,7 +60,7 @@ public class WeaponSwap : MonoBehaviour
         }
         if (Input.mouseScrollDelta.y < 0f)
         {
-            Debug.Log("scroll backward");
+           // Debug.Log("scroll down");
             if (selectedWeapon > 0)
             {
                 selectedWeapon -=1;
@@ -75,7 +75,29 @@ public class WeaponSwap : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             selectedWeapon = 0; // melee 
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedWeapon = 1; // bow            
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedWeapon = 2; // throwable
+        }
 
+        // activate selected weapon UI image and prefab in hand
+        ActivateSelectedWeapon(selectedWeapon);
+    }
+
+    public int GetSelectedWeapon()
+    {
+        return selectedWeapon;
+    } 
+
+    void ActivateSelectedWeapon(int selectedWeapon)
+    {
+        if (selectedWeapon == 0)
+        {
             melee.SetActive(true);
             bow.SetActive(false);
             throwable.SetActive(false);
@@ -84,10 +106,8 @@ public class WeaponSwap : MonoBehaviour
             bowImg.SetActive(false);
             throwableImg.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if(selectedWeapon == 1)
         {
-            selectedWeapon = 1; // bow 
-
             melee.SetActive(false);
             bow.SetActive(true);
             throwable.SetActive(false);
@@ -96,22 +116,15 @@ public class WeaponSwap : MonoBehaviour
             bowImg.SetActive(true);
             throwableImg.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if(selectedWeapon == 2)
         {
-            selectedWeapon = 2; // throwable
-
             melee.SetActive(false);
             bow.SetActive(false);
             throwable.SetActive(true);
-            
+
             meleeImg.SetActive(false);
             bowImg.SetActive(false);
             throwableImg.SetActive(true);
         }
     }
-
-    public int GetSelectedWeapon()
-    {
-        return selectedWeapon;
-    } 
 }
