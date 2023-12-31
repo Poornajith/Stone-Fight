@@ -13,6 +13,7 @@ public class PlayerStats : NetworkBehaviour
 
     [SerializeField] TextMeshPro playerNameLabel;
     [SerializeField] public Image healthBar;
+    [SerializeField] public GameObject gameOverView;
 
     private IEnumerator poisonFieldEffect;
 
@@ -42,6 +43,7 @@ public class PlayerStats : NetworkBehaviour
     {
         if(Health <= 0)
         {
+            gameOverView.SetActive(true);
             FusionConnection.instance.OnPlayerDead();
             FusionConnection.instance.runner.Shutdown();
             Debug.Log("you died");
