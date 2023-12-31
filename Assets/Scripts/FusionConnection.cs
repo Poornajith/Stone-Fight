@@ -19,6 +19,7 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 
     [Header("Session Create")]
     [SerializeField] public GameObject roomNameInputView;
+    [SerializeField] public GameObject gameOverView;
 
     private void Awake()
     {
@@ -88,6 +89,8 @@ public class FusionConnection : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerDead()
     {
+        gameOverView.SetActive(true);
+        runner.Shutdown();
         // spawn tomb prefab           
     }
 

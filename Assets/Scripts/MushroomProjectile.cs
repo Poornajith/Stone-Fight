@@ -8,23 +8,23 @@ public class MushroomProjectile : MonoBehaviour
     [SerializeField] private Transform vfxHitFloor;
     //[SerializeField] private Transform vfxHitTarget;
 
-    //private Rigidbody mushroomRigidBody;
+    private Rigidbody mushroomRigidBody;
 
     NetworkObject mushroomObject;
     NetworkRigidbody mushroomNetworkedRigidbody;
 
     private void Awake()
     {
-       // mushroomRigidBody = GetComponent<Rigidbody>();
+       mushroomRigidBody = GetComponent<Rigidbody>();
 
     }
 
     private void Start()
     {
-        mushroomObject = GetComponent<NetworkObject>();
-        mushroomNetworkedRigidbody = GetComponent<NetworkRigidbody>();
+        //mushroomObject = GetComponent<NetworkObject>();
+        //mushroomNetworkedRigidbody = GetComponent<NetworkRigidbody>();
         float speed = 10f;
-        mushroomNetworkedRigidbody.Rigidbody.velocity = transform.forward * speed;
+        mushroomRigidBody.velocity = transform.forward * speed;
     }
 
     private void OnTriggerEnter(Collider other)

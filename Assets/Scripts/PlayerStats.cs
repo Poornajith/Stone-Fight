@@ -13,7 +13,6 @@ public class PlayerStats : NetworkBehaviour
 
     [SerializeField] TextMeshPro playerNameLabel;
     [SerializeField] public Image healthBar;
-    [SerializeField] public GameObject gameOverView;
 
     private IEnumerator poisonFieldEffect;
 
@@ -22,7 +21,7 @@ public class PlayerStats : NetworkBehaviour
         if (this.HasStateAuthority)
         {
             PlayerName = FusionConnection.instance._playerName;
-            Health = 100;
+            Health = 100;           
         }
     }
 
@@ -43,9 +42,7 @@ public class PlayerStats : NetworkBehaviour
     {
         if(Health <= 0)
         {
-            gameOverView.SetActive(true);
-            FusionConnection.instance.OnPlayerDead();
-            FusionConnection.instance.runner.Shutdown();
+            FusionConnection.instance.OnPlayerDead();            
             Debug.Log("you died");
         }
         
@@ -70,10 +67,10 @@ public class PlayerStats : NetworkBehaviour
         {
             Health -= 30;
         }*/
-        /*if (other.GetComponent<NetworkObject>() != null)
+        if (other.GetComponent<NetworkObject>() != null)
         {
-            Health -= 50;
-        }*/
+            Health -= 20;
+        }
     }
 
     private IEnumerator HealthDecreaseOverTime(float effectTime)
